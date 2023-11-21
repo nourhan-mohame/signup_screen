@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:signup_screen/screens/home.dart';
 import 'package:signup_screen/screens/signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Loginscreen extends StatefulWidget {
-  const Loginscreen({Key? key}) : super(key: key);
+  const Loginscreen({Key? key, required this.fname}) : super(key: key);
+  final String fname; // Add fname parameter to the constructor
 
   @override
   State<Loginscreen> createState() => _LoginscreenState();
@@ -73,10 +76,17 @@ class _LoginscreenState extends State<Loginscreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       _usernameController.clear();
                       _passwordController.clear();
                       // Perform login logic here
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                      pref.setString('username', _usernameController.text);
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) {
+                        return HomeScreen();
+                      }));
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black26,
@@ -97,21 +107,20 @@ class _LoginscreenState extends State<Loginscreen> {
                   children: [
                     const Text(
                       "Don't have an account? ",
-                      style: TextStyle(color: Colors.cyanAccent,
-                      fontSize:20),
+                      style: TextStyle(color: Colors.cyanAccent, fontSize: 20),
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Signup()),
+                          MaterialPageRoute(
+                              builder: (context) => const Signup()),
                         );
                       },
                       child: const Text(
-
                         'Sign Up',
                         style: TextStyle(
-                          fontSize:20,
+                          fontSize: 20,
                           color: Colors.white,
                           decoration: TextDecoration.underline,
                           fontWeight: FontWeight.bold,
@@ -124,7 +133,7 @@ class _LoginscreenState extends State<Loginscreen> {
                 const Text(
                   'Forgot Password',
                   style: TextStyle(
-                    fontSize:20,
+                    fontSize: 20,
                     color: Colors.white,
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold,
@@ -146,10 +155,8 @@ class _LoginscreenState extends State<Loginscreen> {
                       onPressed: () {
                         // Perform action for Facebook icon
                       },
-                      icon: SvgPicture.asset(
-                        'assets/facebook.svg',
-                        color: Colors.white
-                      ),
+                      icon: SvgPicture.asset('assets/facebook.svg',
+                          color: Colors.white),
                     ),
                     IconButton(
                       onPressed: () {

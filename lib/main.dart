@@ -1,24 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:signup_screen/screens/home.dart';
 import 'screens/loginscreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late String fname;
+
+  @override
+  void initState() {
+    super.initState();
+    getValidation();
+  }
+
+  Future<void> getValidation() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    var obtainemail = pref.getString('username');
+    setState(() {
+      fname = obtainemail!;
+    });
+    print(fname);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner:false,
-
-      home:Loginscreen()
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Loginscreen(fname: '',),
     );
   }
 }
-
-
-
-

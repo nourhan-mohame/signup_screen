@@ -122,7 +122,7 @@ class _SignupState extends State<Signup> {
                   onTap: () {
                     Navigator.pop(
                       context,
-                      MaterialPageRoute(builder: (context) => const Loginscreen()),
+                      MaterialPageRoute(builder: (context) => Loginscreen(fname: '',)),
                     );
                   },
                   child: const Text(
