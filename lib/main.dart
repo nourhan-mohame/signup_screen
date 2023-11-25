@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:signup_screen/screens/home.dart';
+import 'package:signup_screen/screens/slider.dart';
 import 'screens/loginscreen.dart';
 
 void main() {
@@ -36,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Loginscreen(fname: '',),
+      home: Carouslider(),
     );
   }
 }

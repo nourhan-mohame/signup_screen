@@ -38,6 +38,9 @@ dependencies:
   http: ^1.0.0
   flutter_svg: ^0.22.0
   shared_preferences: ^2.2.2
+  carousel_slider: ^4.2.1
+  dots_indicator: ^3.0.0
+  flutter_animated_icons: ^1.0.1
 
 
 
